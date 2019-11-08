@@ -1,2 +1,2 @@
-# homeautomation
-python code in raspberry, arduino code with sensor and mqtt protocol
+# Home Automation
+Python code in raspberry, arduino code with sensor and mqtt protocol
