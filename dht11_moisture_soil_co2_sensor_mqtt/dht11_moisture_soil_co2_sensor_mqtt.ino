@@ -8,6 +8,7 @@ const char* password = "greenzoo@150";
 const char* mqtt_server = "192.168.1.2"; 
 const char* mqtt_user = "admin1";
 const char* mqtt_pass= "admin1";
+
 const int pin_dht11 = 2; // DHT11 Sensor PIN D4
 const int DHTTYPE = DHT11;
 const unsigned int delay_sensor_moisture = 180000; // Delay for Soil Sensor

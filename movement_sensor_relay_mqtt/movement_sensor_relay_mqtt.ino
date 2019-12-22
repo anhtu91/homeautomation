@@ -7,8 +7,14 @@ const char* mqtt_server = "192.168.1.2";
 const char* mqtt_user = "admin1";
 const char* mqtt_pass= "admin1";
 
-const unsigned int move_sensor = 13;
+const unsigned int move_sensor = 15;
+const unsigned int relay_1 = 5;
+const unsigned int relay_2 = 4;
+const unsigned int relay_3 = 0;
+const unsigned int relay_4 = 2;
 //const unsigned int rain_sensor = A0;
+
+const unsigned int delay_relay = 50000;
 
 int IsMove;
 char strmove[8];
@@ -20,6 +26,7 @@ WiFiClient espClient;
 PubSubClient client(espClient);
 
 void setup_wifi() {
+  Serial.begin(9600);
   // Connecting to a WiFi network
   WiFi.hostname("ESP8266 Motion Detector");
   WiFi.begin(ssid, password);
@@ -53,6 +60,10 @@ void setup() {
   Serial.begin(9600);
   setup_wifi();
   pinMode(move_sensor, INPUT); 
+  pinMode(relay_1, OUTPUT);
+  pinMode(relay_2, OUTPUT);
+  pinMode(relay_3, OUTPUT);
+  pinMode(relay_4, OUTPUT);
   client.setServer(mqtt_server, 1883);
 }
 
@@ -68,17 +79,23 @@ void loop() {
        IsMove = 0;
        Serial.print("No Move\n");
     }
-      
-    dtostrf(IsMove, 6, 2, strmove);
-    client.publish("move", strmove);
     
-    //Rain Sensor
+    //Convert to string  
+    dtostrf(IsMove, 6, 2, strmove);
+    //Publish to MQTT Broker
+    client.publish("move", strmove);
+
+    //For Relay
+    
+    
+    //For Rain Sensor
     /*IsRain = analogRead(rain_sensor);
     IsRain = constrain(IsRain, 150, 440); 
     IsRain = map(IsRain, 150, 440, 1023, 0); 
 
     dtostrf(IsRain, 6, 2, strrain); //If IsRain >= 20 => Rain
     client.publish("rain", strrain);*/
-    delay(200);
+    
+    delay(delay_relay);
   }
 }
